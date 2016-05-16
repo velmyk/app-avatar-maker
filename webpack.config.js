@@ -33,16 +33,23 @@ module.exports = {
 		})
 	],
 	module: {
-
 		loaders: [
+			{
+                test: /\.js$/,
+                loader: 'ng-annotate'
+            },
 			{
 				test: /\.js$/,
 				include: __dirname + '/src',
 				loader: 'babel',
 				query: {
-					presets: ['es2015']
+					presets: ['es2015', 'stage-0']
 				}
-			}
+			},
+            {
+                test: /\.html$/,
+                loader: 'raw'
+            }
 		],
 		noParse: /angular\/angular.js/
 	}
