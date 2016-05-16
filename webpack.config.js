@@ -2,10 +2,15 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 
 module.exports = {
-	entry: './src/app/app.js',
+	context: __dirname + '/src',
+	// CommonsChunkPlugin can be used for multiple entry points
+	entry: {
+		app: './app/app.js'
+	},
     output: {
-        path: './target',
-        filename: 'app.js',
+        path: __dirname + '/target',
+        pablicpath: '/',
+        filename: '[name].js',
     },
     watch: NODE_ENV == 'development',
     watchOptions: {
@@ -22,6 +27,7 @@ module.exports = {
 		extensions: ['', '.js'] 
 	},
 	plugins: [
+		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			NODE_ENV: JSON.stringify(NODE_ENV)
 		})
@@ -31,13 +37,14 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.js$/,
-				exclude: /(node_modules)/,
+				include: __dirname + '/src',
 				loader: 'babel',
 				query: {
 					presets: ['es2015']
 				}
 			}
-		]
+		],
+		noParse: /angular\/angular.js/
 	}
 };
 
