@@ -9,7 +9,7 @@ const webpack = require('webpack'),
 function addHash(template, hash) {
 	return NODE_ENV === 'production'
 		? template.replace(/\.[^.]+$/, `.[${hash}]$&`)
-		: `${template}?hash=${hash}`;
+		: `${template}?hash=[${hash}]`;
 } 
 
 module.exports = {
@@ -97,7 +97,8 @@ module.exports = {
 		[
 			autoprefixer({ browsers: ['last 2 versions'] })
 		]
-	}
+	},
+
 };
 
 if (NODE_ENV == 'production') {
