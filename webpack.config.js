@@ -21,7 +21,7 @@ module.exports = {
     output: {
         path: __dirname + '/target',
         pablicpath: '/',
-        filename: addHash('[name].js', 'chunkhash'),
+        filename: addHash('[name].js', 'hash'),
     },
     watch: NODE_ENV == 'development',
     watchOptions: {
@@ -47,7 +47,10 @@ module.exports = {
 		new webpack.DefinePlugin({
 			NODE_ENV: JSON.stringify(NODE_ENV)
 		}),
-		new ExtractTextPlugin(addHash('[name].css', 'contenthash'), { allChanks: true }),
+		new ExtractTextPlugin(addHash('[name].css', 'contenthash'), {
+			allChanks: true,
+			disable: process.env.NODE_ENV === 'development'
+		}),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: './index.html',
@@ -74,7 +77,7 @@ module.exports = {
             },
             {
             	test: /\.scss$/,
-            	loader: ExtractTextPlugin.extract('css!postcss!resolve-url!sass?sourceMap')
+            	loader: ExtractTextPlugin.extract('style', 'css!postcss!resolve-url!sass?sourceMap')
             },
             {
             	test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
@@ -98,6 +101,9 @@ module.exports = {
 			autoprefixer({ browsers: ['last 2 versions'] })
 		]
 	},
+	devServer: {
+		hot: true
+	}
 
 };
 
