@@ -1,0 +1,29 @@
+.btn {
+  text-transform: uppercase;
+  position: relative;
+  display: block;
+  float: left;
+  margin: 10px;
+  color: #000000;
+  height: 70;
+  background-color: transparent;
+  box-sizing: border-box;
+  font-size: 12px;
+  font-weight: 700;
+
+  &:focus {
+    outline: none;
+  }
+
+  &_sm {
+    width: 46px;
+  }
+
+  &_md {
+    width: 80px;
+  }
+
+  &_lg {
+    width: 180px;
+  }
+}
