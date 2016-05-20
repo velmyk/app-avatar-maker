@@ -4,8 +4,19 @@ export default class ProfileController {
 
     	const
     		canvas = new FabricService.Canvas('background');
-		FabricService.Image.fromURL('https://s-media-cache-ak0.pinimg.com/736x/74/f0/a5/74f0a561e09d83a10cb42e7ecafeb468.jpg', oImg => {
-			oImg.scale(0.5).setFlipX(true);
+    				
+		FabricService.Image.fromURL('../../src/images/face_default.png', oImg => {
+			oImg.setFlipX(true);
+			oImg.selectable = false;
+			oImg.top = 100;
+			oImg.left = 100;
+  			canvas.add(oImg);
+		});
+
+		FabricService.Image.fromURL('../../src/images/hair-mail.png', oImg => {
+			oImg.setFlipX(true);
+			oImg.top = 60;
+			oImg.left = 110;
   			canvas.add(oImg);
 		});
 
