@@ -18,7 +18,7 @@ export default {
 			left: 105
 		}
 	},
-	eyes: {
+	eyebrows: {
 		angry: {
 			path: 'M 200 350 L 270 350 L 200 320 z M 400 350 L 330 350 L 400 320 z',
 			options: {}
@@ -30,6 +30,24 @@ export default {
 		neutral: {
 			path: 'M 200 350 L 270 350 L 235 335 z M 400 350 L 330 350 L 365 335 z',
 			options: {}
+		}
+	},
+	eyes: {
+		left: {
+			left: 235,
+			top: 350,
+			radius: 10,
+			fill: 'black',
+			selectable: false,
+			originX: 'center', originY: 'center'
+		},
+		right: {
+			left: 365,
+			top: 350,
+			radius: 10,
+			fill: 'black',
+			selectable: false,
+			originX: 'center', originY: 'center'
 		}
 	},
 	nose: {

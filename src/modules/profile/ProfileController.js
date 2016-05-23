@@ -1,10 +1,11 @@
 import AVATAR_ELEMENTS from './AVATAR_ELEMENTS';
 
 export default class ProfileController {
-	constructor($window, FabricService) {
+	constructor($window, FabricService, $timeout) {
 		'ngInject';
 
 		this.FabricService = FabricService;
+		this.$timeout = $timeout;
 
 		this.canvas = new FabricService.Canvas('background');
 
@@ -12,12 +13,12 @@ export default class ProfileController {
 			face: AVATAR_ELEMENTS.face.default,
 			hair: null,
 			eyes: null,
+			eyebrows: null,
 			nose: null,
 			mouth: null
 		};
 					
 		this.refreshAvatar();
-
     }
 
 	addImageElement(canvas, element) {
@@ -50,13 +51,24 @@ export default class ProfileController {
 		});
 	}
 
+	addEyes() {
+		const
+			leftEye = new this.FabricService.Circle(AVATAR_ELEMENTS.eyes.left),
+			rightEye = new this.FabricService.Circle(AVATAR_ELEMENTS.eyes.right);
+
+		this.avatar.eyes = new this.FabricService.Group([leftEye, rightEye], {
+			selectable: false,
+		});
+		this.canvas.add(this.avatar.eyes);
+	}
+
 	addHair(hairType) {
 		this.avatar.hair = AVATAR_ELEMENTS.hair[hairType];
 		this.refreshAvatar();
 	}
 
-	addEyes(eyesType) {
-		this.avatar.eyes = AVATAR_ELEMENTS.eyes[eyesType];
+	addEyebrows(eyebrowsType) {
+		this.avatar.eyebrows = AVATAR_ELEMENTS.eyebrows[eyebrowsType];
 		this.refreshAvatar();
 	}
 
@@ -79,5 +91,16 @@ export default class ProfileController {
 		console.log(e);
 		link.href = this.canvas.toDataURL();
 		link.download = 'avatar.png';
+	}
+
+	animateEyes() {
+		this.addEyes();
+		this.$timeout(() => {
+			this.avatar.eyes.animate('opacity', 0, {
+				duration: 200,
+				onChange: this.canvas.renderAll.bind(this.canvas),
+				onComplete: this.animateEyes.bind(this)
+			})
+		}, 2000);
 	}
 }
