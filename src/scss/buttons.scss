@@ -31,4 +31,14 @@
     color: #ffffff;
     background-color: #000000;
   }
+
+  &_link {
+    text-decoration: none;
+    text-align: center;
+    padding: 3px 0;
+    border-width: 1px;
+    border-style: outset;
+    text-transform: none;
+    font: 12px BlinkMacSystemFont;
+  }
 }

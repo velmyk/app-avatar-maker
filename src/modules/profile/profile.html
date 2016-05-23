@@ -38,8 +38,8 @@
 					ng-click="profileCtrl.animateAvatar()">Animate</button>
 			</div>
 			<div class="profile-avatar-options__save">
-				<button class="btn btn_lg btn_black"
-					ng-click="profileCtrl.saveAvatar()">Save</button>
+				<a class="btn btn_lg btn_black btn_link"
+					ng-click="profileCtrl.saveAvatar($event)">Save</a>
 			</div>
 		</div>
 	</section>
