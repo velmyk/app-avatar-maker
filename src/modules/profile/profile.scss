@@ -16,8 +16,41 @@
 			float: left;
 			width: 200px;
 
+			&__header {
+				text-transform: uppercase;
+				text-align: center;
+				font-size: 12px;
+				font-weight: 700;
+			}
+
 			&__gender {
-				margin-top: 50px;
+				@include clearfix;
+				margin-top: 80px;
+			}
+
+			&__eyes {
+				@include clearfix;
+				margin-top: 20px;
+			}
+
+			&__nose {
+				@include clearfix;
+				margin-top: 20px;
+			}
+
+			&__mouth {
+				@include clearfix;
+				margin-top: 20px;
+			}
+
+			&__animate {
+				@include clearfix;
+				margin-top: 20px;
+			}
+
+			&__save {
+				@include clearfix;
+				margin-top: 20px;
 			}
 		}
 	}

@@ -5,9 +5,42 @@
 		</div>
 		<div class="profile-avatar-options">
 			<div class="profile-avatar-options__gender">
-				<button class="btn btn_md">Male</button>
-				<button class="btn btn_md">Female</button>
-			</div>	
+				<button class="btn btn_md"
+					ng-click="profileCtrl.addHair('male')">Male</button>
+				<button class="btn btn_md"
+					ng-click="profileCtrl.addHair('female')">Female</button>
+			</div>
+			<div class="profile-avatar-options__eyes">
+				<header class="profile-avatar-options__header">Eyes:</header>
+				<button class="btn btn_sm"
+					ng-click="profileCtrl.addEyes('angry')">Ang</button>
+				<button class="btn btn_sm"
+					ng-click="profileCtrl.addEyes('sad')">Sad</button>
+				<button class="btn btn_sm"
+					ng-click="profileCtrl.addEyes('neutral')">Neut</button>
+			</div>
+			<div class="profile-avatar-options__nose">
+				<header class="profile-avatar-options__header">Nose:</header>
+				<button class="btn btn_md"
+					ng-click="profileCtrl.addNose('up')">Up</button>
+				<button class="btn btn_md"
+					ng-click="profileCtrl.addNose('down')">Down</button>
+			</div>
+			<div class="profile-avatar-options__mouth">
+				<header class="profile-avatar-options__header">Mouth:</header>
+				<button class="btn btn_md"
+					ng-click="profileCtrl.addMouth('smile')">Smile</button>
+				<button class="btn btn_md"
+					ng-click="profileCtrl.addMouth('sad')">Sad</button>
+			</div>
+			<div class="profile-avatar-options__animate">
+				<button class="btn btn_lg"
+					ng-click="profileCtrl.animateAvatar()">Animate</button>
+			</div>
+			<div class="profile-avatar-options__save">
+				<button class="btn btn_lg btn_black"
+					ng-click="profileCtrl.saveAvatar()">Save</button>
+			</div>
 		</div>
 	</section>
 </div>

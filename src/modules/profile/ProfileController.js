@@ -1,34 +1,76 @@
+import AVATAR_ELEMENTS from './AVATAR_ELEMENTS';
+
 export default class ProfileController {
-    constructor($window, FabricService) {
-    	'ngInject';
+	constructor($window, FabricService) {
+		'ngInject';
 
-    	const
-    		canvas = new FabricService.Canvas('background');
-    				
-		FabricService.Image.fromURL('../../src/images/face_default.png', oImg => {
-			oImg.setFlipX(true);
-			oImg.selectable = false;
-			oImg.selectable = false;
-			oImg.top = 100;
-			oImg.left = 100;
-  			canvas.add(oImg);
-		});
+		this.FabricService = FabricService;
 
-		FabricService.Image.fromURL('../../src/images/hair-mail.png', oImg => {
-			oImg.setFlipX(true);
-			oImg.selectable = false;
-			oImg.top = 60;
-			oImg.left = 110;
-  			canvas.add(oImg);
-		});
+		this.canvas = new FabricService.Canvas('background');
 
-		FabricService.Image.fromURL('../../src/images/hair-femail.png', oImg => {
-			oImg.setFlipX(true);
-			oImg.selectable = false;
-			oImg.top = 50;
-			oImg.left = 105;
-  			canvas.add(oImg);
-		});
+		this.avatar = {
+			face: AVATAR_ELEMENTS.face.default,
+			hair: null,
+			eyes: null,
+			nose: null,
+			mouth: null
+		};
+					
+		this.refreshAvatar();
 
     }
+
+	addImageElement(canvas, element) {
+		this.FabricService.Image.fromURL(element.imageUrl, oImg => {
+			oImg.setFlipX(true);
+			oImg.selectable = false;
+			oImg.top = element.top;
+			oImg.left = element.left;
+			canvas.add(oImg);
+		});
+	}
+
+	drawElement(canvas, element) {
+		let path = new fabric.Path(element.path);
+		path.set(element.options);
+		canvas.add(path);
+	}
+
+	refreshAvatar() {
+		let element;
+
+		this.clearAvatar();
+		Object.keys(this.avatar).forEach(key => {
+			element = this.avatar[key];
+			if (element) {
+				element.path
+					? this.drawElement(this.canvas, element)
+					: this.addImageElement(this.canvas, element);
+			}
+		});
+	}
+
+	addHair(hairType) {
+		this.avatar.hair = AVATAR_ELEMENTS.hair[hairType];
+		this.refreshAvatar();
+	}
+
+	addEyes(eyesType) {
+		this.avatar.eyes = AVATAR_ELEMENTS.eyes[eyesType];
+		this.refreshAvatar();
+	}
+
+	addNose(noseType) {
+		this.avatar.nose = AVATAR_ELEMENTS.nose[noseType];
+		this.refreshAvatar();
+	}
+
+	addMouth(mouthType) {
+		this.avatar.mouth = AVATAR_ELEMENTS.mouth[mouthType];
+		this.refreshAvatar();
+	}
+
+	clearAvatar() {
+		this.canvas.clear();
+	}
 }
