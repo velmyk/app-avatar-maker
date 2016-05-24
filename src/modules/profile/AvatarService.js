@@ -48,9 +48,9 @@ export default class AvatarService {
 		canvas.clear();
 	}
 
-	saveAvatar(e) {
+	saveAvatar(e, canvas) {
 		let link = e.target;
-		link.href = this.canvas.toDataURL();
+		link.href = canvas.toDataURL();
 		link.download = 'avatar.png';
 	}
 

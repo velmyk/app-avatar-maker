@@ -21,7 +21,7 @@ export default class ProfileController {
     initialize() {
     	this.avatarCanvas = this.AvatarService.createCanvas('avatar');
     	this.addFace('default');
-    	this.drawEyes();
+    	this.addEyes();
     }
 
 
@@ -38,7 +38,7 @@ export default class ProfileController {
 			});
 	}
 
-	drawEyes() {
+	addEyes() {
 		this.avatar.eyes = this.AvatarService.createEyes(AVATAR_ELEMENTS.eyes);
 	}
 
@@ -67,7 +67,7 @@ export default class ProfileController {
 
 
 	saveAvatar(e) {
-		this.AvatarService.saveAvatar(e);
+		this.AvatarService.saveAvatar(e, this.avatarCanvas);
 	}
 
 	animateEyes() {
