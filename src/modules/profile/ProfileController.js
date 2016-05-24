@@ -88,7 +88,6 @@ export default class ProfileController {
 
 	saveAvatar(e) {
 		let link = e.target;
-		console.log(e);
 		link.href = this.canvas.toDataURL();
 		link.download = 'avatar.png';
 	}
