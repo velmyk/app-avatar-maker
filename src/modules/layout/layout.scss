@@ -1,0 +1,19 @@
+.layout {
+	margin: 0 5%;
+
+	&-header {
+
+		border-bottom: 1px solid #C7C7C7;
+		padding: 20px 0;
+
+		&-navigation {
+			@include clearfix;
+			width: 400px;
+			margin: 0 auto;
+		}
+	}
+
+	&-content {
+		
+	}
+}

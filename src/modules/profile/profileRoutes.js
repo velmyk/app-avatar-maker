@@ -4,6 +4,6 @@ export default function profileRoutes($stateProvider) {
     'ngInject';
 
     $stateProvider
-        .state('profile', profileState);
+        .state('layout.profile', profileState);
 
 }
