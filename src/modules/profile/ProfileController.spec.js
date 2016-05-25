@@ -8,8 +8,7 @@ describe('app::profile: ProfileController', () => {
 	beforeEach(() => {
 		AvatarService = {
 			createCanvas: env.stub(),
-			clearCanvas: env.stub(),
-			displayElements: env.stub(),
+			replaceElement: env.stub(),
 			createImageElement: env.stub(),
 			createEyes: env.stub(),
 			createPathElement: env.stub(),
@@ -44,26 +43,6 @@ describe('app::profile: ProfileController', () => {
 		});
 	});
 
-	describe('refresh avatar', () => {
-		let
-			canvas,
-			avatar;
-
-		beforeEach(() => {
-			sut.avatarCanvas = canvas;
-			sut.avatar = avatar;
-			sut.refreshAvatar()
-		});
-
-		it('should clean canvas', () => {
-			AvatarService.clearCanvas.should.calledWith(canvas);
-		});
-
-		it('should display all element on canvas', () => {
-			AvatarService.displayElements.should.calledWith(canvas, avatar);
-		});
-	});
-
 	describe('add face', () => {
 		let
 			faceType;
@@ -81,21 +60,6 @@ describe('app::profile: ProfileController', () => {
 
 	});
 
-	describe('add eyes', () => {
-		let
-			eyesElement;
-
-		beforeEach(() => {
-			eyesElement = {};
-			AvatarService.createEyes.withArgs(AVATAR_ELEMENTS.eyes).returns(eyesElement);
-			sut.addEyes();
-		});
-
-		it('should create eyes element', () => {
-			sut.avatar.eyes.should.equal(eyesElement);
-		});
-	});
-
 	describe('add hair', () => {
 		let
 			hairType;
@@ -108,6 +72,29 @@ describe('app::profile: ProfileController', () => {
 		it('should create hair element', () => {
 			AvatarService.createImageElement.should.calledWith(AVATAR_ELEMENTS.hair[hairType]);
 		});
+
+		// TODO: test promise
+	});
+
+	describe('add eyes', () => {
+		let
+			eyesElement;
+
+		beforeEach(() => {
+			eyesElement = {};
+			sut.avatar.eyes = {};
+			sut.avatarCanvas = {};
+			AvatarService.createEyes.withArgs(AVATAR_ELEMENTS.eyes).returns(eyesElement);
+			sut.addEyes();
+		});
+
+		it('should create eyes element', () => {
+			sut.avatar.eyes.should.equal(eyesElement);
+		});
+
+		it('should replace eyes on avatar', () => {
+			AvatarService.replaceElement.should.calledWith(sut.avatarCanvas, sut.avatar.eyes, eyesElement);
+		});
 	});
 
 	describe('add eyebrows', () => {
@@ -118,7 +105,8 @@ describe('app::profile: ProfileController', () => {
 		beforeEach(() => {
 			eyebrowsType = {};
 			eyebrowsElement = {};
-			sut.refreshAvatar = env.stub();
+			sut.avatar.eyebrows = {};
+			sut.avatarCanvas = {};
 			AvatarService.createPathElement.withArgs(AVATAR_ELEMENTS.eyebrows[eyebrowsType]).returns(eyebrowsElement)
 			sut.addEyebrows(eyebrowsType);
 		});
@@ -127,8 +115,8 @@ describe('app::profile: ProfileController', () => {
 			sut.avatar.eyebrows.should.equal(eyebrowsElement);
 		});
 
-		it('should refresh avatar canvas', () => {
-			sut.refreshAvatar.should.called;
+		it('should replace eyebrows on avatar', () => {
+			AvatarService.replaceElement.should.calledWith(sut.avatarCanvas, sut.avatar.eyebrows, eyebrowsElement);
 		});
 	});
 
@@ -140,7 +128,8 @@ describe('app::profile: ProfileController', () => {
 		beforeEach(() => {
 			noseType = {};
 			noseElement = {};
-			sut.refreshAvatar = env.stub();
+			sut.avatar.nose = {};
+			sut.avatarCanvas = {};
 			AvatarService.createPathElement.withArgs(AVATAR_ELEMENTS.nose[noseType]).returns(noseElement)
 			sut.addNose(noseType);
 		});
@@ -149,8 +138,8 @@ describe('app::profile: ProfileController', () => {
 			sut.avatar.nose.should.equal(noseElement);
 		});
 
-		it('should refresh avatar canvas', () => {
-			sut.refreshAvatar.should.called;
+		it('should replace nose on avatar', () => {
+			AvatarService.replaceElement.should.calledWith(sut.avatarCanvas, sut.avatar.nose, noseElement);
 		});
 	});
 
@@ -162,7 +151,8 @@ describe('app::profile: ProfileController', () => {
 		beforeEach(() => {
 			mouthType = {};
 			mouthElement = {};
-			sut.refreshAvatar = env.stub();
+			sut.avatar.mouth = {};
+			sut.avatarCanvas = {};
 			AvatarService.createPathElement.withArgs(AVATAR_ELEMENTS.mouth[mouthType]).returns(mouthElement)
 			sut.addMouth(mouthType);
 		});
@@ -171,8 +161,8 @@ describe('app::profile: ProfileController', () => {
 			sut.avatar.mouth.should.equal(mouthElement);
 		});
 
-		it('should refresh avatar canvas', () => {
-			sut.refreshAvatar.should.called;
+		it('should replace mouth on avatar', () => {
+			AvatarService.replaceElement.should.calledWith(sut.avatarCanvas, sut.avatar.mouth, mouthElement);
 		});
 	});
 
@@ -184,6 +174,7 @@ describe('app::profile: ProfileController', () => {
 		beforeEach(() => {
 			event = {};
 			canvas = {};
+
 			sut.avatarCanvas = canvas;
 			sut.saveAvatar(event);
 		});

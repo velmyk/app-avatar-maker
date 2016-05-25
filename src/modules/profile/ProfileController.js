@@ -24,47 +24,45 @@ export default class ProfileController {
     	this.addEyes();
     }
 
-
-	refreshAvatar() {
-		this.AvatarService.clearCanvas(this.avatarCanvas);
-		this.AvatarService.displayElements(this.avatarCanvas, this.avatar);
-	}
-
 	addFace(faceType) {
 		this.AvatarService.createImageElement(AVATAR_ELEMENTS.face[faceType])
-			.then(face => {
-				this.avatar.face = face;
-				this.refreshAvatar();
+			.then(newFace => {
+				this.AvatarService.replaceElement(this.avatarCanvas, this.avatar.face, newFace);
+				this.avatar.face = newFace;
 			});
-	}
-
-	addEyes() {
-		this.avatar.eyes = this.AvatarService.createEyes(AVATAR_ELEMENTS.eyes);
 	}
 
 	addHair(hairType) {
 		this.AvatarService.createImageElement(AVATAR_ELEMENTS.hair[hairType])
-			.then(hair => {
-				this.avatar.hair = hair;
-				this.refreshAvatar();
+			.then(newHair => {
+				this.AvatarService.replaceElement(this.avatarCanvas, this.avatar.hair, newHair);
+				this.avatar.hair = newHair;
 			});
 	}
 
+	addEyes() {
+		let newEyes = this.AvatarService.createEyes(AVATAR_ELEMENTS.eyes);
+		this.AvatarService.replaceElement(this.avatarCanvas, this.avatar.eyes, newEyes);
+		this.avatar.eyes = newEyes;
+	}
+
 	addEyebrows(eyebrowsType) {
-		this.avatar.eyebrows = this.AvatarService.createPathElement(AVATAR_ELEMENTS.eyebrows[eyebrowsType]);
-		this.refreshAvatar();
+		let newEyebrows = this.AvatarService.createPathElement(AVATAR_ELEMENTS.eyebrows[eyebrowsType]);
+		this.AvatarService.replaceElement(this.avatarCanvas, this.avatar.eyebrows, newEyebrows);
+		this.avatar.eyebrows = newEyebrows;
 	}
 
 	addNose(noseType) {
-		this.avatar.nose = this.AvatarService.createPathElement(AVATAR_ELEMENTS.nose[noseType]);
-		this.refreshAvatar();
+		let newNose = this.AvatarService.createPathElement(AVATAR_ELEMENTS.nose[noseType]);
+		this.AvatarService.replaceElement(this.avatarCanvas, this.avatar.nose, newNose);
+		this.avatar.nose = newNose;
 	}
 
 	addMouth(mouthType) {
-		this.avatar.mouth = this.AvatarService.createPathElement(AVATAR_ELEMENTS.mouth[mouthType]);
-		this.refreshAvatar();
+		let newMouth = this.AvatarService.createPathElement(AVATAR_ELEMENTS.mouth[mouthType]);
+		this.AvatarService.replaceElement(this.avatarCanvas, this.avatar.mouth, newMouth);
+		this.avatar.mouth = newMouth;
 	}
-
 
 	saveAvatar(e) {
 		this.AvatarService.saveAvatar(e, this.avatarCanvas);

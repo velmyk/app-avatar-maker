@@ -30,10 +30,6 @@ export default class AvatarService {
 		return path;
 	}
 
-	displayElements(canvas, elements) {
-		Object.keys(elements).forEach(key => elements[key] ? canvas.add(elements[key]) : '')
-	}
-
 	createEyes(eyes) {
 		const
 			leftEye = new this.FabricService.Circle(eyes.left),
@@ -44,8 +40,11 @@ export default class AvatarService {
 		});
 	}
 
-	clearCanvas(canvas) {
-		canvas.clear();
+	replaceElement(canvas, fromElement, toElement) {
+		if(fromElement) {
+			canvas.remove(fromElement);
+		}
+		canvas.add(toElement);
 	}
 
 	saveAvatar(e, canvas) {
