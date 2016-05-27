@@ -1,14 +1,16 @@
 <section class="football">
 	<div class="football-chart"></div>
 	<div class="football-options">
-		<form ng-submit="footballCtrl.onGetLeagueDataSubmit()">
-			<label for="leagueId">LeagueID:</label>
+		<form ng-submit="footballCtrl.onGetLeagueDataSubmit()"
+			class="football-options-league">
+			<label for="leagueId"
+				class="football-options-league__label">LeagueID:</label>
 			<input id="leagueId"
-					ng-model="footballCtrl.input.leagueId"
-					type="text">
+				class="football-options-league__input"
+				ng-model="footballCtrl.input.leagueId"
+				type="text">
 			<button class="btn btn_lg"
 				type="submit">Show league</button>
 		</form>
-		<header>League ID</header>
 	</div>
 </section>

@@ -1,19 +1,41 @@
 .football {
-
+	
 	@include clearfix;
 	width: 800px;
 	margin: 0 auto;
+	font: 12px BlinkMacSystemFont;
 	
 	&-chart {
 		width: 600px;
 		float: left;
-		// border: solid 1px;
 	}
 
 	&-options {
 		display: block;
 		width: 200px;
-		float: left
+		float: left;
+
+		&-league {
+			@include clearfix;
+			font-weight: bold;
+			display: block;
+			margin-top: 30px;
+
+			&__label {
+				margin: 3px 0 0 10px;
+				float: left;
+			}
+
+			&__input {
+				margin-right: 10px;
+				width: 100px;
+				float: right;
+
+				&:focus {
+					outline: none;
+				}
+			}
+		}
 	}
 }
 
