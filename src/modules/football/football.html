@@ -1,6 +1,14 @@
 <section class="football">
-	<div class="football-chart">
-		<!-- <svg id="chart" width="600" height="400"></svg> -->
+	<div class="football-chart"></div>
+	<div class="football-options">
+		<form ng-submit="footballCtrl.onGetLeagueDataSubmit()">
+			<label for="leagueId">LeagueID:</label>
+			<input id="leagueId"
+					ng-model="footballCtrl.input.leagueId"
+					type="text">
+			<button class="btn btn_lg"
+				type="submit">Show league</button>
+		</form>
+		<header>League ID</header>
 	</div>
-	<div class="football-options"></div>
 </section>
