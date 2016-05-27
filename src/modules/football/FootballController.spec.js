@@ -1,19 +1,19 @@
-import FootballController from './FootballController';
+// import FootballController from './FootballController';
 
-describe('app::football: FootballController', () => {
-	let sut;
+// describe('app::football: FootballController', () => {
+// 	let sut;
 
-	beforeEach(() => {
-		sut = new FootballController();
-	});
+// 	beforeEach(() => {
+// 		sut = new FootballController();
+// 	});
 
-	describe('', () => {
-		beforeEach(() => {
+// 	describe('', () => {
+// 		beforeEach(() => {
 			
-		});
+// 		});
 
-		it('', () => {
+// 		it('', () => {
 			
-		});
-	});
-});
+// 		});
+// 	});
+// });

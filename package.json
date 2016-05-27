@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test.config.js --compilers js:babel-register",
+    "test:tdd": "mocha ./test.config.js -w -R dot --compilers js:babel-register",
     "watch": "NODE_ENV=development webpack-dev-server --inline --hot"
   },
   "repository": {

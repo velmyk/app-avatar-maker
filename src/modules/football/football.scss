@@ -7,6 +7,7 @@
 	&-chart {
 		width: 600px;
 		float: left;
+		border: solid 1px;
 	}
 
 	&-options {
@@ -14,4 +15,15 @@
 		width: 200px;
 		float: left
 	}
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }

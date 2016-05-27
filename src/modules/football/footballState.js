@@ -9,5 +9,15 @@ export default {
 			controller: FootballController,
 			controllerAs: 'footballCtrl'
     	}
-    }
+    },
+	resolve: {
+		data: getData
+	}
+
 };
+
+function getData(FootballDataResource) {
+	'ngInject';
+
+	return FootballDataResource.getLeagueData(398);
+}
