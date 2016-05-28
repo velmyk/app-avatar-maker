@@ -1,5 +1,8 @@
 export default class BarChart {
-	constructor(d3, container, width, height) {
+	constructor(d3, container, width, height, xValue, yValue) {
+		this.xValue = xValue;
+		this.yValue = yValue;
+
 		this.margin = {
 			top: 20,
 			right: 20,
@@ -33,25 +36,15 @@ export default class BarChart {
     			.attr('height', this.height + this.margin.top + this.margin.bottom)
   				.append('g')
     				.attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
-	}
 
-	updateChartData(data, xValue, yValue) {
-		this.xValue = xValue;
-		this.yValue = yValue;
-
-		this.x.domain(data.map(d => d[xValue]));
-		this.y.domain([0, d3.max(data, d => d[yValue])])
-
-		this.chart
+    	this.chart
 			.append('g')
       			.attr('class', 'x axis')
       			.attr('transform', `translate(0, ${this.height})`)
-      			.call(this.xAxis);
 
 		this.chart
 			.append('g')
 				.attr('class', 'y axis')
-				.call(this.yAxis)
 				.append('text')
 					.attr('transform', 'rotate(-90)')
 					.attr('y', 6)
@@ -59,20 +52,43 @@ export default class BarChart {
 					.style('text-anchor', 'end')
 					.text('goals');
 
-		this.chart.selectAll('.bar')
-			.data(data)
-			.enter()
-				.append('rect')
-					.attr('class', 'bar')
-					.attr('x', d => this.x(d[xValue]))
+	}
+
+	setScaling(data) {
+		this.x.domain(data.map(d => d[this.xValue]));
+		this.y.domain([0, d3.max(data, d => d[this.yValue])])
+	}
+
+	updateChartData(data) {
+
+		this.setScaling(data);
+
+		this.redrawAxis(data);
+
+		let rect = this.chart.selectAll("rect")
+			.data(data);
+
+		rect.transition()
+				.duration(1000)
+					.attr("x", d => this.x(d[this.xValue]))
 					.attr('width', this.x.rangeBand())
-					.attr('y', d => this.y(d[yValue]))
-					.attr('height', d => this.height - this.y(d[yValue]));
+					.attr("y", d => this.y(d[this.yValue]))
+					.attr("height", d => this.height - this.y(d[this.yValue]));
+
+		rect.exit()
+				.remove();
+
+		rect.enter()
+			.append('rect')
+					.attr('class', 'bar')
+					.attr('x', d => this.x(d[this.xValue]))
+					.attr('width', this.x.rangeBand())
+					.attr('y', d => this.y(d[this.yValue]))
+					.attr('height', d => this.height - this.y(d[this.yValue]));
 	}
 
 	redrawAxis(data) {
-		this.x.domain(data.map(d => d[this.xValue]));
-		this.y.domain([0, d3.max(data, d => d[this.yValue])])
+		this.setScaling(data);
 
 		this.chart
 			.select('.y')
@@ -85,32 +101,5 @@ export default class BarChart {
 				.transition()
 				.duration(1000)
 					.call(this.xAxis);
-	}
-
-	redrawChart(data) {
-		this.redrawAxis(data);
-
-		let rect = this.chart.selectAll("rect")
-			.data(data);
-
-		rect.transition()
-				.duration(1000)
-				.attr("x", d => this.x(d[this.xValue]))
-				.attr('width', this.x.rangeBand())
-				.attr("y", d => this.y(d[this.yValue]))
-				.attr("height", d => this.height - this.y(d[this.yValue]));
-
-		rect.exit()
-				.remove();
-
-		rect.enter()
-			.append('rect')
-					.attr('class', 'bar')
-					.attr('x', d => this.x(d[this.xValue]))
-					.attr('width', this.x.rangeBand())
-					.attr('y', d => this.y(d[this.yValue]))
-					.attr('height', d => this.height - this.y(d[this.yValue]));
-
-
 	}
 }

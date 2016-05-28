@@ -7,7 +7,7 @@ export default class FootballController {
 		this.FootballDataResource = FootballDataResource;
 
 		this.leagueData = data.standing;
-		this.barChart = new BarChart(d3, '.football-chart', 600, 400);
+		this.barChart = new BarChart(d3, '.football-chart', 600, 400, 'position', 'goals');
 
 		this.input = {
 			leagueId: null
@@ -17,12 +17,12 @@ export default class FootballController {
 	}
 
 	drawBarChart() {
-		this.barChart.updateChartData(this.leagueData, 'position', 'goals');
+		this.barChart.updateChartData(this.leagueData);
 	}
 
 	onGetLeagueDataSubmit() {
 		// console.log(this.input.leagueId);
 		this.FootballDataResource.getLeagueData(this.input.leagueId)
-			.then(leagueData => this.barChart.redrawChart(leagueData.standing, 'position', 'goals'));
+			.then(leagueData => this.barChart.updateChartData(leagueData.standing));
 	}
 }
