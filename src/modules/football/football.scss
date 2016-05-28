@@ -36,6 +36,15 @@
 				}
 			}
 		}
+
+		&-chart-type {
+			margin-top: 20px;
+
+			&__header {
+				text-align: center;
+				font-weight: bold;
+			}
+		}
 	}
 }
 
@@ -48,4 +57,18 @@
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
 }

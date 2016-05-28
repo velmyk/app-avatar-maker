@@ -1,28 +1,43 @@
 import BarChart from './BarChart';
+import LineChart from './LineChart';
 
 export default class FootballController {
 	constructor($window, d3, data, FootballDataResource) {
 		'ngInject';
 
 		this.FootballDataResource = FootballDataResource;
-
+		this.d3 = d3;
 		this.leagueData = data.standing;
-		this.barChart = new BarChart(d3, '.football-chart', 600, 400, 'position', 'goals');
+		this.chart = new BarChart(this.d3, '.football-chart', 600, 400, 'position', 'goals');
 
 		this.input = {
 			leagueId: null
 		};
 
-		this.drawBarChart();
+		this.drawChart();
 	}
 
-	drawBarChart() {
-		this.barChart.updateChartData(this.leagueData);
+	drawChart() {
+		this.chart.updateChartData(this.leagueData);
 	}
 
 	onGetLeagueDataSubmit() {
-		// console.log(this.input.leagueId);
 		this.FootballDataResource.getLeagueData(this.input.leagueId)
-			.then(leagueData => this.barChart.updateChartData(leagueData.standing));
+			.then(leagueData => {
+				this.leagueData = leagueData.standing;
+				this.drawChart();
+			});
+	}
+
+	useBarChart() {
+		this.chart.clearChart();
+		this.chart = new BarChart(this.d3, '.football-chart', 600, 400, 'position', 'goals');
+		this.drawChart();
+	}
+
+	useLineChart() {
+		this.chart.clearChart();
+		this.chart = new LineChart(this.d3, '.football-chart', 600, 400, 'position', 'goals');
+		this.drawChart();
 	}
 }
