@@ -1,5 +1,6 @@
 import BarChart from './BarChart';
 import LineChart from './LineChart';
+import Diagram from './Diagram';
 
 export default class FootballController {
 	constructor($window, d3, data, FootballDataResource) {
@@ -38,6 +39,12 @@ export default class FootballController {
 	useLineChart() {
 		this.chart.clearChart();
 		this.chart = new LineChart(this.d3, '.football-chart', 600, 400, 'position', 'goals');
+		this.drawChart();
+	}
+
+	useDiagram() {
+		this.chart.clearChart();
+		this.chart = new Diagram(this.d3, '.football-chart', 600, 400, 'goals');
 		this.drawChart();
 	}
 }
