@@ -25,6 +25,7 @@
 *.log
 *.sql
 *.sqlite
+npm-debug.log
 
 # OS generated files #
 ######################
@@ -47,3 +48,6 @@ target/
 # Dependency directory #
 ########################
 node_modules/
+
+# Env variables and keys #
+.travisdeploykey

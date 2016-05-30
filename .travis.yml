@@ -3,9 +3,18 @@ node_js:
   - '5.10'
 before_install:
   - sudo apt-get install libcairo2-dev
+script: bash ./deploy.sh
+env:
+  global:
+    - COMMIT_AUTHOR_EMAIL: velmyk@gmail.com
 branches:
   only:
     - master
 cache:
   directories:
     - node_modules
+
+script: bash ./deploy.sh
+env:
+  global:
+    - COMMIT_AUTHOR_EMAIL: velmyk@gmail.com
