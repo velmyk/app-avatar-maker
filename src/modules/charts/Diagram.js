@@ -1,5 +1,9 @@
-export default class Diagram {
+import DefaultChart from './DefaultChart';
+
+export default class Diagram extends DefaultChart {
 	constructor(d3, container, width, height, value) {
+
+		super(d3, container);
 
 		this.d3 = d3;
 		this.value = value;
@@ -96,10 +100,5 @@ export default class Diagram {
 			.attr('d', this.arc);
 
 		diagram.exit().remove();
-	}
-
-
-	clearChart() {
-		this.d3.selectAll(`${this.container} > *`).remove();
 	}
 }

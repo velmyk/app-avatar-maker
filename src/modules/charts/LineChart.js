@@ -1,5 +1,10 @@
-export default class BarChart {
+import DefaultChart from './DefaultChart';
+
+export default class LineChart extends DefaultChart {
 	constructor(d3, container, width, height, xValue, yValue) {
+
+		super(d3, container);
+
 		this.xValue = xValue;
 		this.yValue = yValue;
 		this.container = container;
@@ -16,6 +21,18 @@ export default class BarChart {
 		this.initScaling();
 		this.initChart();
 		this.initAxis();
+	}
+
+	redrawChart(data) {
+
+		let valueline = this.d3.svg.line()
+			.x(d => this.x(d[this.xValue]))
+			.y(d => this.y(d[this.yValue]));
+
+		this.chart.select(".line")
+			.transition()
+				.duration(1000)
+					.attr("d", valueline(data));
 	}
 
 	initScaling() {
@@ -59,6 +76,8 @@ export default class BarChart {
 				.attr('height', this.height + this.margin.top + this.margin.bottom)
 				.append('g')
 					.attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
+		this.chart.append("path")
+        .attr("class", "line");
 	}
 
 	setScaling(data) {
@@ -70,30 +89,6 @@ export default class BarChart {
 		this.setScaling(data);
 		this.redrawAxis(data);
 		this.redrawChart(data);
-	}
-
-	redrawChart(data) {
-
-		let rect = this.chart.selectAll("rect")
-			.data(data);
-
-		rect.transition()
-				.duration(1000)
-					.attr("x", d => this.x(d[this.xValue]))
-					.attr('width', this.x.rangeBand())
-					.attr("y", d => this.y(d[this.yValue]))
-					.attr("height", d => this.height - this.y(d[this.yValue]));
-
-		rect.exit()
-				.remove();
-
-		rect.enter()
-			.append('rect')
-					.attr('class', 'bar')
-					.attr('x', d => this.x(d[this.xValue]))
-					.attr('width', this.x.rangeBand())
-					.attr('y', d => this.y(d[this.yValue]))
-					.attr('height', d => this.height - this.y(d[this.yValue]));
 	}
 
 	redrawAxis(data) {
@@ -110,9 +105,5 @@ export default class BarChart {
 				.transition()
 				.duration(1000)
 					.call(this.xAxis);
-	}
-
-	clearChart() {
-		this.d3.selectAll(`${this.container} > *`).remove();
 	}
 }

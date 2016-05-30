@@ -38,11 +38,11 @@ module.exports = {
 		extensions: ['', '.js'] 
 	},
 	plugins: [
-		{
-			apply: (compiler) => {
-				rimraf.sync(`${compiler.options.output.path}/*`)
-			}
-		},
+		// {
+		// 	apply: (compiler) => {
+		// 		rimraf.sync(`${compiler.options.output.path}/*`)
+		// 	}
+		// },
 		new webpack.NoErrorsPlugin(),
 		new webpack.DefinePlugin({
 			NODE_ENV: JSON.stringify(NODE_ENV)
