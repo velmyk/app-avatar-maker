@@ -40,7 +40,7 @@ module.exports = {
 	plugins: [
 		{
 			apply: (compiler) => {
-				rimraf.sync(compiler.options.output.path)
+				rimraf.sync(`${compiler.options.output.path}/*`)
 			}
 		},
 		new webpack.NoErrorsPlugin(),
