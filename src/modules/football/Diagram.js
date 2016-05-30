@@ -79,15 +79,23 @@ export default class Diagram {
 	}
 
 	redrawChart() {
-		this.diagram.datum(this.root).selectAll('path')
-			.data(this.partition.value(d => d[this.value]).nodes)
-			.enter().append('path')
+		let diagram = this.diagram.datum(this.root).selectAll('path')
+			.data(this.partition.value(d => d[this.value]).nodes);
+
+		
+		diagram.enter().append('path')
 			.attr('display', d => d.depth ? null : 'none') // hide inner ring
 			.attr('d', this.arc)
 			.style('stroke', '#fff')
 			.style('fill', d => this.color((d.children ? d : d.parent).name))
 			.style('fill-rule', 'evenodd')
-			.each(this.stash); 
+			.each(this.stash);
+
+		diagram.transition()
+			.duration(1000)
+			.attr('d', this.arc);
+
+		diagram.exit().remove();
 	}
 
 
