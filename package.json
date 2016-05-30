@@ -4,7 +4,8 @@
   "description": "app for making funny avatars",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack && npm run images",
+    "images": "mkdir -p ./target/src/images && cp ./src/images/*.png ./target/src/images/",
     "test": "mocha ./test.config.js --compilers js:babel-register",
     "test:tdd": "mocha ./test.config.js -w -R dot --compilers js:babel-register",
     "watch": "NODE_ENV=development webpack-dev-server --inline --hot"
